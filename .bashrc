@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;33m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -116,5 +116,51 @@ if ! shopt -oq posix; then
   fi
 fi
 
-LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/roger/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/roger/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/roger/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/roger/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# manual add
+export PATH=$PATH:~/.local/bin
+
+# For OpenFOAM
+. /usr/lib/openfoam/openfoam2312/etc/bashrc
+
+# Autoload SSH Agent
+env=~/.ssh/agent.env
+agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+agent_start () {
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ; }
+agent_load_env
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+    agent_start
+    ssh-add
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+    ssh-add
+fi
+unset env
+
+#eval "$(ssh-agent -s)"
+#ssh-add ~/.ssh/id_ed25519
+
+# ROS 2
+export ROS_DISTRO=iron
+
+if [ -f /opt/ros/$ROS_DISTRO/setup.bash ]; then
+    .  /opt/ros/$ROS_DISTRO/setup.bash
+fi
 

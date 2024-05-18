@@ -1,0 +1,54 @@
+# Configuration file for dircolors
+
+# Below are the color codes:
+# 00 = default color
+# 01 = bold
+# 03 = italics
+# 04 = underlined
+# 05 = blinking
+# 07 = reverse
+# 08 = concealed
+
+# Foreground colors:
+# 30 = black
+# 31 = red
+# 32 = green
+# 33 = yellow
+# 34 = blue
+# 35 = magenta
+# 36 = cyan
+# 37 = white
+
+# Background colors:
+# 40 = black
+# 41 = red
+# 42 = green
+# 43 = yellow
+# 44 = blue
+# 45 = magenta
+# 46 = cyan
+# 47 = white
+
+# File type codes and their associated colors:
+DIR 04;33  # directories are bold blue
+LINK 01;36  # symbolic links are bold cyan
+FIFO 40;33  # pipe files are yellow on black
+SOCK 01;35  # socket files are bold magenta
+BLK 40;33;01  # block device driver files are bold yellow on black
+CHR 40;33;01  # character device driver files are bold yellow on black
+ORPHAN 01;05;37;41  # orphaned symbolic links are bold blinking white on red
+MISSING 01;05;37;41  # missing files are bold blinking white on red
+
+# Custom file extension colors
+*.tar 01;31  # tar files are bold red
+*.gz 01;31  # gzipped files are bold red
+*.tz 01;31  # gzipped files are bold red
+*.jpg 01;35  # jpg images are bold magenta
+*.png 01;35  # png images are bold magenta
+*.svg 01;35  # png images are bold magenta
+*.mp4 01;35  # png images are bold magenta
+*.mpeg 01;35  # png images are bold magenta
+*.py 01;36
+*.ipynb 01;36
+*.txt 01;35
+.* 01;03;32
