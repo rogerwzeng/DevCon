@@ -59,7 +59,9 @@ Plug 'davidhalter/jedi-vim'
 "Plug 'lervag/vimtex'
 """Debugging
 Plug 'puremourning/vimspector'
+Plug 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update() } }
 Plug 'majutsushi/tagbar'
+Plug 'vim-test/vim-test'
 """UI appearance
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -75,10 +77,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
 Plug 'github/copilot.vim'
 """Markdown Integration
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 """Unused
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 "Plug 'vim-scripts/CSApprox'
 "Plug 'editor-bootstrap/vim-bootstrap-updater'
 "Plug 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update() } }
@@ -279,8 +282,8 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 nnoremap <silent> <F2> :NERDTreeFind<CR>
-"nnoremap <silent> <F3> :NERDTreeToggle<CR>
-nnoremap F :NERDTreeToggle<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+"nnoremap F :NERDTreeToggle<CR>
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -288,6 +291,8 @@ let Grep_Default_Options = '-IR'
 let Grep_Skip_Files = '*.log *.db'
 let Grep_Skip_Dirs = '.git node_modules'
 
+" vim-test
+let test#strategy = "vimspectorpy"
 
 "*****************************************************************************
 "" Commands
@@ -613,7 +618,7 @@ nnoremap <leader>mt :MarkdownPreviewToggle<CR>
 
  " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
-let g:mkdp_auto_start = 0
+let g:mkdp_auto_start = 1
 
 " set to 1, the nvim will auto close current preview window when change
 " from markdown buffer to another buffer
@@ -624,7 +629,7 @@ let g:mkdp_auto_close = 1
 " leave from insert mode, default 0 is auto refresh markdown as you edit or
 " move the cursor
 " default: 0
-let g:mkdp_refresh_slow = 0
+let g:mkdp_refresh_slow = 1
 
 " set to 1, the MarkdownPreview command can be use for all files,
 " by default it can be use in markdown file
