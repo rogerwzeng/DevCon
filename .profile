@@ -25,3 +25,9 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# Path for ArduPilot
+export PATH=/usr/lib/ccache:/home/roger/ardupilot/Tools/autotest:$PATH
+
+# Path for LaTex
+export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
